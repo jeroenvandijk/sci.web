@@ -2,6 +2,8 @@
         org.clojure/clojurescript {:mvn/version "1.10.520"}
         reagent {:mvn/version "0.8.1"}
         cljsjs/codemirror {:mvn/version "5.44.0-1"}
+        datascript {:mvn/version"0.18.12"}
+        
         cljsjs/parinfer-codemirror {:mvn/version "1.4.1-2"}
         borkdude/sci {:git/url "https://github.com/borkdude/sci"
                       :sha "d768910b6c4f51fc9b3331f5d8ddefc59c1f4f36"}

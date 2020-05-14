@@ -10,7 +10,8 @@
    [cljsjs.parinfer-codemirror]
    [reagent.core :as r]
    [sci.core :refer [eval-string]]
-   [sci.gist :as gist])
+   [sci.gist :as gist]
+   [datascript.core :as d])
   (:import [goog Uri]))
 
 (defonce initial-code (atom "(defmacro bindings []
@@ -55,7 +56,9 @@
         (j/call editor :removeLineWidget node))
       (reset! warnings-ref [])
       (let [opts (eval-string (.getValue opts) {:realize-max 10000})
-            res (eval-string (.getValue editor) (assoc-in opts [:namespaces 'clojure.core 'prn] prn))
+            res (eval-string (.getValue editor) (-> opts
+                                                    (assoc-in [:namespaces 'clojure.core 'prn] prn)
+                                                    (assoc-in [:namespaces 'd 'q] d/q)))
             res-string (pr-str res)]
         (j/call js/CodeMirror :runMode res-string "clojure" (js/document.getElementById "result")))
       (catch js/Error e
